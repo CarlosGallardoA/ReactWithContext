@@ -1,13 +1,14 @@
 import { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import PokemonContext from "../../context/pokemons";
+//import PokemonContext from "../../context/pokemons";
 import PokeStats from "./components/PokeStats";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
+import usePokemonsStore from '../../zustand/stores/pokemons'
 function PokeDetail() {
   const { id } = useParams();
-  const { getPokemonDetail, pokemonDetail, isLoading, hasError, errorMessage } =
-    useContext(PokemonContext);
+  //const { getPokemonDetail, pokemonDetail, isLoading, hasError, errorMessage } = useContext(PokemonContext);
+  const { getPokemonDetail, pokemonDetail, isLoading, hasError, errorMessage } = usePokemonsStore(state => ({getPokemonDetail: state.getPokemonDetail, pokemonDetail: state.pokemonDetail, isLoading: state.isLoading, hasError: state.hasError, errorMessage: state.errorMessage}))
   //Cuando cargue la pantalla o cambie el id solicitar el detalle del pokemon
   useEffect(() => {
     getPokemonDetail(id).catch(null);
